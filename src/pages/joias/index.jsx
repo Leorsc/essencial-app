@@ -1,34 +1,27 @@
-import Link from "next/link"
+import LayoutJoiasPages from '@/components/LayoutJoiasPages'
 import Head from 'next/head'
 
-export async function getStaticProps() {
-  const data = await fetch('http://localhost:3333/categorias')
 
-  const categorias = await data.json()
+export async function getStaticProps() {
+  const data = await fetch('http://localhost:3333/joias')
+
+  const joias = await data.json()
 
   return {
-    props: { categorias },
+    props: { joias },
   }
 }
 
-export default function Joias({ categorias }) {
+export default function Joias({ joias }) {
 
   return (
     <>
       <Head>
         <title>Essencial Semi Joias</title>
       </Head>
-      <div>
-        <h1>Joias</h1>
-        {
-          categorias.map((categoria) => (
-            <div key={categoria.id}>
-              <Link href={`/joias/${categoria.descricao}`}>{categoria.descricao}</Link>
-            </div>
-          ))
-        }
-      </div>
+      <LayoutJoiasPages joias={joias} />
     </>
 
   )
 }
+

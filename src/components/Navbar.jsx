@@ -47,17 +47,13 @@ function Navbar() {
     {
       id: 5,
       title: 'Como Revender',
-      list: [
-        'Programa de revendedores',
-        'Como se tornar um revendedor',
-        'FAQ de revendedores',
-      ]
+      list: []
     }
   ]
 
   return (
     <>
-      <nav className="w-full h-full flex justify-evenly items-center gap-10">
+      <nav className="w-full h-full flex justify-evenly items-center">
         {
           menuItems.map((item) => (
             <Dropdown

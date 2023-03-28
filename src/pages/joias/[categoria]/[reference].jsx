@@ -44,7 +44,9 @@ export default function Joia({ joiaSelecionada }) {
       <Head>
         <title>{pageTitle}</title>
       </Head>
-      <h1>{joiaSelecionada.descricao}</h1>
+      <div className="min-h-screen">
+        <h1>{joiaSelecionada.descricao}</h1>
+      </div>
     </>
 
 

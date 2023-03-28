@@ -6,13 +6,13 @@ export default function CategoriaNav({ categorias }) {
     <>
       {
         categorias.map((categoria) => (
-          <Link href={`/joias/${categoria.descricao}`}>
+          <Link key={categoria.id} href={`/joias/${categoria.descricao}`}>
             <div
-              className="flex flex-col items-center border-solid border-gray-200 border shadow rounded-md cursor-pointer"
-              key={categoria.id}
+              className="flex flex-col items-center border-solid border-gray-200 border rounded-md cursor-pointer hover:border-essencial-blue hover:text-essencial-blue"
+
             >
-              <img className=" pt-2 h-44 w-36" src={categoria.image} alt={categoria.descricao} />
-              <span>{categoria.descricao}</span>
+              <img className=" pt-2 h-36 w-34" src={categoria.image} alt={categoria.descricao} />
+              <span className="capitalize">{categoria.descricao}</span>
 
             </div>
           </Link>

@@ -1,4 +1,4 @@
-import Link from "next/link"
+import LayoutJoiasPages from "@/components/LayoutJoiasPages"
 import Head from 'next/head'
 
 export async function getStaticProps(context) {
@@ -45,13 +45,7 @@ export default function JoiasCategoria({ joiasCategoria }) {
       <Head>
         <title>{pageTitle}</title>
       </Head>
-      <div className="flex flex-col">
-        {
-          joiasCategoria.map((joia) => (
-            <Link href={`/joias/${joia.categoria_name}/${(joia.descricao.normalize('NFD').replace(/[\u0300-\u036f]/g, "")).toLowerCase().replace(/ /g, "-")}-${joia.reference}`} key={joia.id}>{joia.descricao}</Link>
-          ))
-        }
-      </div>
+      <LayoutJoiasPages joias={joiasCategoria} />
     </>
 
   )

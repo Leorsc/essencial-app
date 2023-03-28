@@ -1,11 +1,19 @@
 import LayoutJoiasPages from '@/components/LayoutJoiasPages'
+import api from '@/services/api'
 import Head from 'next/head'
 
-
 export async function getStaticProps() {
-  const data = await fetch('http://localhost:3333/joias')
+  async function loadJoias() {
+    try {
+      const response = await api.get('/joias')
+      return response.data
 
-  const joias = await data.json()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const joias = await loadJoias();
 
   return {
     props: { joias },

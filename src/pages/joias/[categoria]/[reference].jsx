@@ -1,13 +1,24 @@
 import Link from "next/link"
 import Head from 'next/head'
+import api from "@/services/api"
 
 export async function getStaticProps(context) {
 
   const { params } = context
 
-  const data = await fetch(`http://localhost:3333/${params.reference}`)
+  async function handleReference(params) {
+    try {
+      const response = await api.get(`/${params.reference}`)
 
-  const joiaSelecionada = await data.json()
+      return response.data
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const joiaSelecionada = await handleReference(params)
+
   return {
     props: {
       joiaSelecionada
@@ -16,9 +27,17 @@ export async function getStaticProps(context) {
 }
 
 export async function getStaticPaths() {
-  const response = await fetch('http://localhost:3333/joias')
 
-  const data = await response.json()
+  async function handleJoiasPaths() {
+    try {
+      const response = await api.get('/joias')
+      return response.data
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const data = await handleJoiasPaths()
   const paths = data.map((joia) => {
     return {
       params: {

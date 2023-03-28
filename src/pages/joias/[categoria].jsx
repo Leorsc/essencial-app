@@ -1,4 +1,5 @@
 import LayoutJoiasPages from "@/components/LayoutJoiasPages"
+import api from "@/services/api"
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 
@@ -6,9 +7,17 @@ export async function getStaticProps(context) {
 
   const { params } = context
 
-  const data = await fetch(`http://localhost:3333/joias/${params.categoria}`)
+  async function getJoiasCategorias(params) {
+    try {
+      const response = await api.get(`/joias/${params.categoria}`)
+      return response.data
 
-  const joiasCategoria = await data.json()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  const joiasCategoria = await getJoiasCategorias(params);
+
   return {
     props: {
       joiasCategoria
@@ -18,9 +27,17 @@ export async function getStaticProps(context) {
 
 export async function getStaticPaths() {
 
-  const response = await fetch('http://localhost:3333/categorias')
+  async function getCategoriasPaths() {
+    try {
+      const response = await api.get('/categorias')
+      return response.data
 
-  const data = await response.json()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const data = await getCategoriasPaths()
 
   const paths = data.map((categoria) => {
     return {

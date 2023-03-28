@@ -2,12 +2,20 @@ import Link from "next/link"
 import Head from 'next/head'
 import Image from "next/image"
 import CategoriaNav from "@/components/CategoriaNav"
+import api from "@/services/api"
 
 export async function getStaticProps() {
-  const data = await fetch('http://localhost:3333/categorias')
+  async function loadCategorias() {
+    try {
+      const response = await api.get('/categorias')
 
-  const categorias = await data.json()
+      return response.data
 
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  const categorias = await loadCategorias();
   return {
     props: { categorias },
   }

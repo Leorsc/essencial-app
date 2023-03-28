@@ -1,5 +1,6 @@
 import LayoutJoiasPages from "@/components/LayoutJoiasPages"
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 
 export async function getStaticProps(context) {
 
@@ -37,15 +38,23 @@ export async function getStaticPaths() {
 
 
 export default function JoiasCategoria({ joiasCategoria }) {
-  const categoriaName = joiasCategoria[0].categoria_name;
-  const categoriaNameCapitalized = categoriaName.charAt(0).toUpperCase() + categoriaName.slice(1);
+  const router = useRouter()
+  const { categoria } = router.query
+  const categoriaName = categoria
+  const categoriaNameCapitalized = categoriaName ? categoriaName.charAt(0).toUpperCase() + categoriaName.slice(1) : 'Joias'
   const pageTitle = categoriaNameCapitalized + ' | ' + 'Essencial'
   return (
     <>
       <Head>
         <title>{pageTitle}</title>
       </Head>
-      <LayoutJoiasPages joias={joiasCategoria} />
+      {
+        joiasCategoria ?
+          <LayoutJoiasPages joias={joiasCategoria} />
+          :
+          //TODO criar uma página de loading
+          <h1>Loading...</h1>
+      }
     </>
 
   )

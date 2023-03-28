@@ -5,7 +5,7 @@ export default function JoiasList({ joias }) {
     <>
       {
         joias.map((joia) => (
-          <JoiasCard joia={joia} />
+          <JoiasCard key={joia.id} joia={joia} />
         ))
       }
     </>
